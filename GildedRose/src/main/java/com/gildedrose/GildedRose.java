@@ -12,6 +12,7 @@ class GildedRose {
             case Const.AGED_BRIE -> handleBrie(item);
             case Const.SULFURAS -> handleSulfuras(item);
             case Const.BACKSTAGE_PASSES -> handleBackstage(item);
+            case Const.CONJURED -> handleConjured(item);
             default -> handleStandard(item);
         }
 
@@ -24,7 +25,7 @@ class GildedRose {
         item.quality--;
         item.sellIn--;
 
-        if(item.sellIn < 0 && item.quality > 0) {
+        if(item.sellIn < 0) {
             item.quality--;
         }
     }
@@ -55,6 +56,15 @@ class GildedRose {
 
     private void handleSulfuras(Item item) {
 
+    }
+
+    private void handleConjured(Item item) {
+        item.quality -= 2;
+        item.sellIn--;
+
+        if(item.sellIn < 0) {
+            item.quality -= 2;
+        }
     }
 
     public void updateQuality() {

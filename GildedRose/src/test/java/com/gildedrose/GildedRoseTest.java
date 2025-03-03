@@ -105,4 +105,22 @@ class GildedRoseTest {
         app.updateQuality();
         assertEquals(80, app.items[0].quality);
     }
+
+    @Test
+    @DisplayName("Update quality of Conjured")
+    void testConjuredUpdateQuality1() {
+        Item[] items = new Item[] { new Item(Const.CONJURED, 5, 50) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(48, app.items[0].quality);
+    }
+
+    @Test
+    @DisplayName("Update quality of Conjured with sellIn 0")
+    void testConjuredUpdateQuality2() {
+        Item[] items = new Item[] { new Item(Const.CONJURED, 0, 50) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(46, app.items[0].quality);
+    }
 }
