@@ -109,27 +109,19 @@ public class Game implements IGame {
 
     public boolean handleCorrectAnswer() {
         if (inPenaltyBox[currentPlayer]) {
-            if (isGettingOutOfPenaltyBox) {
-                System.out.println("Answer was correct!!!!");
-                purses[currentPlayer]++;
-                System.out.println(players.get(currentPlayer) + " now has " + purses[currentPlayer] + " Gold Coins.");
-
-                boolean winner = didPlayerWin();
-                nextPlayer();
-                return winner;
-            } else {
+            if (!isGettingOutOfPenaltyBox) {
                 nextPlayer();
                 return true;
             }
-        } else {
-            System.out.println("Answer was correct!!!!");
-            purses[currentPlayer]++;
-            System.out.println(players.get(currentPlayer) + " now has " + purses[currentPlayer] + " Gold Coins.");
-
-            boolean winner = didPlayerWin();
-            nextPlayer();
-            return winner;
         }
+
+        System.out.println("Answer was correct!!!!");
+        purses[currentPlayer]++;
+        System.out.println(players.get(currentPlayer) + " now has " + purses[currentPlayer] + " Gold Coins.");
+
+        boolean winner = didPlayerWin();
+        nextPlayer();
+        return winner;
     }
 
     public boolean wrongAnswer() {
