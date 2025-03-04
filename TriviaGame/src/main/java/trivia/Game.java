@@ -22,7 +22,6 @@ public class Game implements IGame {
     LinkedList<String> rockQuestions = new LinkedList<>();
 
     int currentPlayer = 0;
-    boolean isGettingOutOfPenaltyBox;
 
     public Game() {
         for (int i = 0; i < 50; i++) {
@@ -69,7 +68,7 @@ public class Game implements IGame {
         System.out.println("They have rolled a " + roll);
 
         if (inPenaltyBox[currentPlayer]) { //Tries to get out of jail
-            isGettingOutOfPenaltyBox = roll % 2 != 0;
+            boolean isGettingOutOfPenaltyBox = roll % 2 != 0;
             if (isGettingOutOfPenaltyBox) {
                 inPenaltyBox[currentPlayer] = false;
                 System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
@@ -78,7 +77,7 @@ public class Game implements IGame {
             }
         }
 
-        if(!inPenaltyBox[currentPlayer] || isGettingOutOfPenaltyBox) { //Can play
+        if(!inPenaltyBox[currentPlayer]) { //Can play
             advanceCurrentPlayer(roll);
             System.out.println("The category is " + currentCategory());
             askQuestion();
@@ -107,10 +106,8 @@ public class Game implements IGame {
 
     public boolean handleCorrectAnswer() {
         if (inPenaltyBox[currentPlayer]) {
-            if (!isGettingOutOfPenaltyBox) {
-                nextPlayer();
-                return true;
-            }
+            nextPlayer();
+            return true;
         }
 
         System.out.println("Answer was correct!!!!");
