@@ -68,19 +68,16 @@ public class Game implements IGame {
         System.out.println(players.get(currentPlayer) + " is the current player");
         System.out.println("They have rolled a " + roll);
 
-        if (inPenaltyBox[currentPlayer]) {
+        if (inPenaltyBox[currentPlayer]) { //Tries to get out of jail
             isGettingOutOfPenaltyBox = roll % 2 != 0;
             if (isGettingOutOfPenaltyBox) {
                 System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-                advanceCurrentPlayer(roll);
-
-                System.out.println("The category is " + currentCategory());
-                askQuestion();
             } else {
                 System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
-                isGettingOutOfPenaltyBox = false;
             }
-        } else {
+        }
+
+        if(!inPenaltyBox[currentPlayer] || isGettingOutOfPenaltyBox) { //Can play
             advanceCurrentPlayer(roll);
             System.out.println("The category is " + currentCategory());
             askQuestion();
