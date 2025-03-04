@@ -12,9 +12,6 @@ public class Game implements IGame {
     private final String SPORTS = "Sports";
 
     List<Player> players = new ArrayList<>();
-    int[] places = new int[6];
-    int[] purses = new int[6];
-    boolean[] inPenaltyBox = new boolean[6];
 
     LinkedList<String> popQuestions = new LinkedList<>();
     LinkedList<String> scienceQuestions = new LinkedList<>();
