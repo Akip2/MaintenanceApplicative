@@ -6,30 +6,35 @@ import java.util.List;
 
 // REFACTOR ME
 public class Game implements IGame {
+   private final String ROCK = "Rock";
+   private final String POP = "Pop";
+   private final String SCIENCE = "Science";
+   private final String SPORTS = "Sports";
+
    List<String> players = new ArrayList<>();
    int[] places = new int[6];
    int[] purses = new int[6];
    boolean[] inPenaltyBox = new boolean[6];
 
-   List<String> popQuestions = new LinkedList<>();
-   List<String> scienceQuestions = new LinkedList<>();
-   List<String> sportsQuestions = new LinkedList<>();
-   List<String> rockQuestions = new LinkedList<>();
+   LinkedList<String> popQuestions = new LinkedList<>();
+   LinkedList<String> scienceQuestions = new LinkedList<>();
+   LinkedList<String> sportsQuestions = new LinkedList<>();
+   LinkedList<String> rockQuestions = new LinkedList<>();
 
    int currentPlayer = 0;
    boolean isGettingOutOfPenaltyBox;
 
    public Game() {
       for (int i = 0; i < 50; i++) {
-         popQuestions.addLast("Pop Question " + i);
-         scienceQuestions.addLast(("Science Question " + i));
-         sportsQuestions.addLast(("Sports Question " + i));
-         rockQuestions.addLast(createRockQuestion(i));
+         popQuestions.addLast(createQuestion(POP, i));
+         scienceQuestions.addLast(createQuestion(SCIENCE, i));
+         sportsQuestions.addLast(createQuestion(SPORTS, i));
+         rockQuestions.addLast(createQuestion(ROCK, i));
       }
    }
 
-   public String createRockQuestion(int index) {
-      return "Rock Question " + index;
+   public String createQuestion(String type, int index) {
+      return type+" Question " + index;
    }
 
    public boolean isPlayable() {
