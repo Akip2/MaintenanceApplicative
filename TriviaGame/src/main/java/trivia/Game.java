@@ -56,21 +56,24 @@ public class Game implements IGame {
         return players.size();
     }
 
+    private void advanceCurrentPlayer(int steps) {
+        places[currentPlayer] = places[currentPlayer] + steps;
+        if (places[currentPlayer] > 12) {
+            places[currentPlayer] = places[currentPlayer] - 12;
+        }
+        System.out.println(players.get(currentPlayer) + "'s new location is " + places[currentPlayer]);
+    }
+
     public void roll(int roll) {
         System.out.println(players.get(currentPlayer) + " is the current player");
         System.out.println("They have rolled a " + roll);
 
         if (inPenaltyBox[currentPlayer]) {
-            if (roll % 2 != 0) {
-                isGettingOutOfPenaltyBox = true;
-
+            isGettingOutOfPenaltyBox = roll % 2 != 0;
+            if (isGettingOutOfPenaltyBox) {
                 System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-                places[currentPlayer] = places[currentPlayer] + roll;
-                if (places[currentPlayer] > 12) {
-                    places[currentPlayer] = places[currentPlayer] - 12;
-                }
+                advanceCurrentPlayer(roll);
 
-                System.out.println(players.get(currentPlayer) + "'s new location is " + places[currentPlayer]);
                 System.out.println("The category is " + currentCategory());
                 askQuestion();
             } else {
@@ -78,12 +81,7 @@ public class Game implements IGame {
                 isGettingOutOfPenaltyBox = false;
             }
         } else {
-            places[currentPlayer] = places[currentPlayer] + roll;
-            if (places[currentPlayer] > 12) {
-                places[currentPlayer] = places[currentPlayer] - 12;
-            }
-
-            System.out.println(players.get(currentPlayer) + "'s new location is " + places[currentPlayer]);
+            advanceCurrentPlayer(roll);
             System.out.println("The category is " + currentCategory());
             askQuestion();
         }
