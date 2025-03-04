@@ -94,10 +94,10 @@ public class Game implements IGame {
 
     private void askQuestion() {
         switch (currentCategory()) {
-            case "Pop" -> System.out.println(popQuestions.removeFirst());
-            case "Science" -> System.out.println(scienceQuestions.removeFirst());
-            case "Sports" -> System.out.println(sportsQuestions.removeFirst());
-            case "Rock" -> System.out.println(rockQuestions.removeFirst());
+            case POP -> System.out.println(popQuestions.removeFirst());
+            case SCIENCE -> System.out.println(scienceQuestions.removeFirst());
+            case SPORTS -> System.out.println(sportsQuestions.removeFirst());
+            case ROCK -> System.out.println(rockQuestions.removeFirst());
         }
     }
 
@@ -105,10 +105,10 @@ public class Game implements IGame {
         int currentPosition = places[currentPlayer] - 1;
 
         return switch (currentPosition) {
-            case 0, 4, 8 -> "Pop";
-            case 1, 5, 9 -> "Science";
-            case 2, 6, 10 -> "Sports";
-            default -> "Rock";
+            case 0, 4, 8 -> POP;
+            case 1, 5, 9 -> SCIENCE;
+            case 2, 6, 10 -> SPORTS;
+            default -> ROCK;
         };
     }
 
