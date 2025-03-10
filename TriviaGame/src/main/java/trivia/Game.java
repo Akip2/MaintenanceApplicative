@@ -1,37 +1,52 @@
 package trivia;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 // REFACTOR ME
 public class Game implements IGame {
-    private final String ROCK = "Rock";
-    private final String POP = "Pop";
-    private final String SCIENCE = "Science";
-    private final String SPORTS = "Sports";
+    public enum Category {
+        POP("Pop"),
+        SCIENCE("Science"),
+        ROCK("Rock"),
+        SPORTS("Sports");
 
-    List<Player> players = new ArrayList<>();
+        private final String stringValue;
+        Category(final String name) {
+            stringValue = name;
+        }
 
-    LinkedList<String> popQuestions = new LinkedList<>();
-    LinkedList<String> scienceQuestions = new LinkedList<>();
-    LinkedList<String> sportsQuestions = new LinkedList<>();
-    LinkedList<String> rockQuestions = new LinkedList<>();
-
-    int currentPlayerId = 0;
-    private Player currentPlayer;
-
-    public Game() {
-        for (int i = 0; i < 50; i++) {
-            popQuestions.addLast(createQuestion(POP, i));
-            scienceQuestions.addLast(createQuestion(SCIENCE, i));
-            sportsQuestions.addLast(createQuestion(SPORTS, i));
-            rockQuestions.addLast(createQuestion(ROCK, i));
+        @Override
+        public String toString() {
+            return stringValue;
         }
     }
 
-    public String createQuestion(String type, int index) {
-        return type + " Question " + index;
+    List<Player> players = new ArrayList<>();
+
+    private final HashMap<Category, LinkedList<String>> questions;
+
+    int currentPlayerId = 0;
+    private Player currentPlayer;
+    public Game() {
+        questions = new HashMap<>();
+
+        Category[] categories = Category.values();
+        for (Category category : categories) {
+            LinkedList<String> questionList = new LinkedList<>();
+
+            for (int j = 0; j < 50; j++) {
+                questionList.add(createQuestion(category, j));
+            }
+
+            questions.put(category, questionList);
+        }
+    }
+
+    public String createQuestion(Category category, int index) {
+        return category.toString() + " Question " + index;
     }
 
     public boolean isPlayable() {
@@ -76,28 +91,26 @@ public class Game implements IGame {
 
         if(!currentPlayer.isInPenalty()) { //Can play
             advanceCurrentPlayer(roll);
-            System.out.println("The category is " + currentCategory());
+            System.out.println("The category is " + getCurrentCategory());
             askQuestion();
         }
     }
 
     private void askQuestion() {
-        switch (currentCategory()) {
-            case POP -> System.out.println(popQuestions.removeFirst());
-            case SCIENCE -> System.out.println(scienceQuestions.removeFirst());
-            case SPORTS -> System.out.println(sportsQuestions.removeFirst());
-            case ROCK -> System.out.println(rockQuestions.removeFirst());
-        }
+        Category currentCategory = getCurrentCategory();
+        LinkedList<String> questionList = questions.get(currentCategory);
+        System.out.println(questionList.removeFirst());
+        questions.put(currentCategory, questionList);
     }
 
-    private String currentCategory() {
+    private Category getCurrentCategory() {
         int currentPosition = currentPlayer.getPosition() - 1;
 
         return switch (currentPosition) {
-            case 0, 4, 8 -> POP;
-            case 1, 5, 9 -> SCIENCE;
-            case 2, 6, 10 -> SPORTS;
-            default -> ROCK;
+            case 0, 4, 8 -> Category.POP;
+            case 1, 5, 9 -> Category.SCIENCE;
+            case 2, 6, 10 -> Category.SPORTS;
+            default -> Category.ROCK;
         };
     }
 
