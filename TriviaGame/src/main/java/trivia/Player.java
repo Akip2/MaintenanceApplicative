@@ -1,7 +1,7 @@
 package trivia;
 
 public class Player {
-    private String name;
+    private final String name;
     private int coins;
     private int position;
     private boolean inPenalty;
