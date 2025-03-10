@@ -7,23 +7,6 @@ import java.util.List;
 
 // REFACTOR ME
 public class Game implements IGame {
-    public enum Category {
-        POP("Pop"),
-        SCIENCE("Science"),
-        ROCK("Rock"),
-        SPORTS("Sports");
-
-        private final String stringValue;
-        Category(final String name) {
-            stringValue = name;
-        }
-
-        @Override
-        public String toString() {
-            return stringValue;
-        }
-    }
-
     List<Player> players = new ArrayList<>();
 
     private final HashMap<Category, LinkedList<String>> questions;
@@ -105,13 +88,9 @@ public class Game implements IGame {
 
     private Category getCurrentCategory() {
         int currentPosition = currentPlayer.getPosition() - 1;
+        int categoryId = currentPosition % Category.values().length;
 
-        return switch (currentPosition) {
-            case 0, 4, 8 -> Category.POP;
-            case 1, 5, 9 -> Category.SCIENCE;
-            case 2, 6, 10 -> Category.SPORTS;
-            default -> Category.ROCK;
-        };
+        return Category.values()[categoryId];
     }
 
     public boolean handleCorrectAnswer() {
