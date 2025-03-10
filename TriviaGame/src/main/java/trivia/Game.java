@@ -13,6 +13,7 @@ public class Game implements IGame {
 
     int currentPlayerId = 0;
     private Player currentPlayer;
+
     public Game() {
         questions = new HashMap<>();
 
@@ -43,7 +44,7 @@ public class Game implements IGame {
         System.out.println(playerName + " was added");
         System.out.println("They are player number " + players.size());
 
-        if(currentPlayer == null) {
+        if (currentPlayer == null) {
             currentPlayer = players.get(0);
         }
         return true;
@@ -72,7 +73,7 @@ public class Game implements IGame {
             }
         }
 
-        if(!currentPlayer.isInPenalty()) { //Can play
+        if (!currentPlayer.isInPenalty()) { //Can play
             advanceCurrentPlayer(roll);
             System.out.println("The category is " + getCurrentCategory());
             askQuestion();
@@ -94,18 +95,15 @@ public class Game implements IGame {
     }
 
     public boolean handleCorrectAnswer() {
-        if (currentPlayer.isInPenalty()) {
-            nextPlayer();
-            return true;
+        if (!currentPlayer.isInPenalty()) {
+            System.out.println("Answer was correct!!!!");
+            currentPlayer.addCoin();
+            System.out.println(currentPlayer + " now has " + currentPlayer.getCoins() + " Gold Coins.");
         }
-
-        System.out.println("Answer was correct!!!!");
-        currentPlayer.addCoin();
-        System.out.println(currentPlayer + " now has " + currentPlayer.getCoins() + " Gold Coins.");
 
         boolean winner = didPlayerWin();
         nextPlayer();
-        return winner;
+        return !winner;
     }
 
     public boolean wrongAnswer() {
@@ -128,6 +126,6 @@ public class Game implements IGame {
     }
 
     private boolean didPlayerWin() {
-        return currentPlayer.getCoins() != 6;
+        return currentPlayer.getCoins() >= 6;
     }
 }
