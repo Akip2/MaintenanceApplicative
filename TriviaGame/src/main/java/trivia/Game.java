@@ -82,9 +82,7 @@ public class Game implements IGame {
 
     private void askQuestion() {
         Category currentCategory = getCurrentCategory();
-        LinkedList<String> questionList = questions.get(currentCategory);
-        System.out.println(questionList.removeFirst());
-        questions.put(currentCategory, questionList);
+        System.out.println(questions.get(currentCategory).removeFirst());
     }
 
     private Category getCurrentCategory() {
