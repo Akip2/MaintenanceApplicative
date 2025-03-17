@@ -13,6 +13,8 @@ public class Main {
         boolean continuer = true;
 
         List<User> utilisateurs = new ArrayList<>();
+        utilisateurs.add(new User("Pierre", "KiRouhl"));
+        utilisateurs.add(new User("Roger", "Chat"));
 
         while (true) {
 
