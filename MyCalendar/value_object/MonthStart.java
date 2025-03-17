@@ -9,9 +9,9 @@ public class MonthStart {
 
             if(dInt > 12) {
                 this.month = 12;
-            } else this.month = Math.max(dInt, 0);
+            } else this.month = Math.max(dInt, 1);
         } catch (NumberFormatException e) {
-            this.month = 0;
+            this.month = 1;
         }
     }
 

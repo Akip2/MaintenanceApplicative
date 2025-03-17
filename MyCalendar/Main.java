@@ -1,10 +1,6 @@
-import event.Event;
-import event.MeetingEvent;
-import event.PeriodicEvent;
-import event.PersonalEvent;
+import event.*;
 import user.User;
 import user.UserManager;
-import value_object.*;
 
 import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
@@ -49,11 +45,11 @@ public class Main {
 
                         User userToCompare = userManager.getUser(name1);
 
-                        if(userToCompare != null) {
+                        if (userToCompare != null) {
                             System.out.print("Mot de passe: ");
                             String pass = scanner.nextLine();
 
-                            if(userToCompare.isPassword(pass)) {
+                            if (userToCompare.isPassword(pass)) {
                                 utilisateur = userToCompare;
                             } else {
                                 System.out.println("Mot de passe invalide.");
@@ -155,95 +151,40 @@ public class Main {
 
                     case "2":
                         // Ajout simplifié d'un RDV personnel
-                        System.out.print("Titre de l'événement : ");
-                        EventTitle title = new EventTitle(scanner.nextLine());
-                        System.out.print("Année (AAAA) : ");
-                        YearStart year = new YearStart(scanner.nextLine());
-                        System.out.print("Mois (1-12) : ");
-                        MonthStart month = new MonthStart(scanner.nextLine());
-                        System.out.print("Jour (1-31) : ");
-                        DayStart day = new DayStart(scanner.nextLine());
-                        System.out.print("Heure début (0-23) : ");
-                        HourStart hour = new HourStart(scanner.nextLine());
-                        System.out.print("Minute début (0-59) : ");
-                        MinuteStart minute = new MinuteStart(scanner.nextLine());
-                        System.out.print("Durée (en minutes) : ");
-                        EventDuration duration = new EventDuration(scanner.nextLine());
-
-                        Event e1 = new PersonalEvent(title.getValue(), utilisateur,
-                                LocalDateTime.of(year.getValue(), month.getValue(), day.getValue(), hour.getValue(), minute.getValue()), duration.getValue());
-                        calendar.ajouterEvent(e1);
+                        Event personalEvent = Events.createEvent(EventType.PERSONAL, utilisateur);
+                        calendar.ajouterEvent(personalEvent);
 
                         System.out.println("Événement ajouté.");
                         break;
 
                     case "3":
-                        System.out.print("Titre de l'événement : ");
-                        EventTitle title2 = new EventTitle(scanner.nextLine());
-                        System.out.print("Année (AAAA) : ");
-                        YearStart year2 = new YearStart(scanner.nextLine());
-                        System.out.print("Mois (1-12) : ");
-                        MonthStart month2 = new MonthStart(scanner.nextLine());
-                        System.out.print("Jour (1-31) : ");
-                        DayStart day2 = new DayStart(scanner.nextLine());
-                        System.out.print("Heure début (0-23) : ");
-                        HourStart hour2 = new HourStart(scanner.nextLine());
-                        System.out.print("Minute début (0-59) : ");
-                        MinuteStart minute2 = new MinuteStart(scanner.nextLine());
-                        System.out.print("Durée (en minutes) : ");
-                        EventDuration duration2 = new EventDuration(scanner.nextLine());
-                        System.out.println("Lieu :");
-                        EventPlace place = new EventPlace(scanner.nextLine());
-
-                        MeetingEvent e3 = new MeetingEvent(title2.getValue(), utilisateur,
-                                LocalDateTime.of(year2.getValue(), month2.getValue(), day2.getValue(), hour2.getValue(), minute2.getValue()), duration2.getValue(), place.getValue());
-                        e3.addParticipant(utilisateur);
+                        MeetingEvent meetingEvent = (MeetingEvent) Events.createEvent(EventType.MEETING, utilisateur);
 
                         System.out.println("Ajouter un participant ? (oui / non)");
                         String answer = scanner.nextLine();
                         boolean encore = answer.equals("oui");
 
-                        while (encore)
-                        {
-                            String participantName =scanner.nextLine();
+                        while (encore) {
+                            String participantName = scanner.nextLine();
                             User newParticipant = userManager.getUser(participantName);
 
-                            e3.addParticipant(newParticipant);
+                            meetingEvent.addParticipant(newParticipant);
 
                             System.out.print("Participants : ");
-                            System.out.println(e3.getParticipants());
+                            System.out.println(meetingEvent.getParticipants());
 
                             System.out.println("En ajouter un autre ? (oui/non)");
                             encore = scanner.nextLine().equals("oui");
                         }
 
-                        calendar.ajouterEvent(e3);
+                        calendar.ajouterEvent(meetingEvent);
 
                         System.out.println("Événement ajouté.");
                         break;
 
-                        case "4":
-                        System.out.print("Titre de l'événement : ");
-                        EventTitle title3 = new EventTitle(scanner.nextLine());
-                        System.out.print("Année (AAAA) : ");
-                        YearStart year3 = new YearStart(scanner.nextLine());
-                        System.out.print("Mois (1-12) : ");
-                        MonthStart month3 = new MonthStart(scanner.nextLine());
-                        System.out.print("Jour (1-31) : ");
-                        DayStart day3 = new DayStart(scanner.nextLine());
-                        System.out.print("Heure début (0-23) : ");
-                        HourStart hour3 = new HourStart(scanner.nextLine());
-                        System.out.print("Minute début (0-59) : ");
-                        MinuteStart minute3 = new MinuteStart(scanner.nextLine());
-                        System.out.print("Durée (en minutes) : ");
-                        EventDuration duration3 = new EventDuration(scanner.nextLine());
-
-                        System.out.print("Frequence (en jours) : ");
-                        EventFrequence frequence = new EventFrequence(scanner.nextLine());
-
-                        Event e2 = new PeriodicEvent(title3.getValue(), utilisateur,
-                                LocalDateTime.of(year3.getValue(), month3.getValue(), day3.getValue(), hour3.getValue(), minute3.getValue()), duration3.getValue(), frequence.getValue());
-                        calendar.ajouterEvent(e2);
+                    case "4":
+                        Event periodicEvent = Events.createEvent(EventType.PERIODIC, utilisateur);
+                        calendar.ajouterEvent(periodicEvent);
 
                         System.out.println("Événement ajouté.");
                         break;

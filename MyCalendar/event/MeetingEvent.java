@@ -16,6 +16,8 @@ public class MeetingEvent extends Event {
         super(title, proprietaire, dateDebut, dureeMinutes);
         this.participants = new ArrayList<>();
         this.lieu = lieu;
+
+        this.addParticipant(proprietaire);
     }
 
     public void addParticipant(User user) {
