@@ -1,8 +1,9 @@
-import events.Event;
-import events.MeetingEvent;
-import events.PeriodicEvent;
-import events.PersonalEvent;
-import users.User;
+import event.Event;
+import event.MeetingEvent;
+import event.PeriodicEvent;
+import event.PersonalEvent;
+import user.User;
+import user.UserManager;
 
 import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
@@ -18,12 +19,9 @@ public class Main {
         User utilisateur = null;
         boolean continuer = true;
 
-        List<User> utilisateurs = new ArrayList<>();
-        utilisateurs.add(new User("Pierre", "KiRouhl"));
-        utilisateurs.add(new User("Roger", "Chat"));
+        UserManager userManager = new UserManager();
 
         while (true) {
-
             if (utilisateur == null) {
                 System.out.println("  _____         _                   _                __  __");
                 System.out.println(" / ____|       | |                 | |              |  \\/  |");
@@ -49,10 +47,7 @@ public class Main {
                         System.out.print("Nom d'utilisateur: ");
                         String name1 = scanner.nextLine();
 
-                        User userToCompare = utilisateurs.stream()
-                                .filter(user -> user.getName().equals(name1))
-                                .findFirst()
-                                .orElse(null);
+                        User userToCompare = userManager.getUser(name1);
 
                         if(userToCompare != null) {
                             System.out.print("Mot de passe: ");
@@ -77,10 +72,9 @@ public class Main {
                         System.out.print("Répéter mot de passe: ");
                         if (scanner.nextLine().equals(pass)) {
                             utilisateur = new User(name2, pass);
-                            utilisateurs.add(utilisateur);
+                            userManager.addUser(utilisateur);
                         } else {
                             System.out.println("Les mots de passes ne correspondent pas...");
-                            utilisateur = null;
                         }
                         break;
                 }
@@ -214,15 +208,13 @@ public class Main {
 
                         while (encore)
                         {
+                            String participantName =scanner.nextLine();
+                            User newParticipant = userManager.getUser(participantName);
+
+                            e3.addParticipant(newParticipant);
+
                             System.out.print("Participants : ");
                             System.out.println(e3.getParticipants());
-
-                            String participantName =scanner.nextLine();
-                            User newParticipant = utilisateurs.stream()
-                                    .filter(user -> user.getName().equals(participantName))
-                                    .findFirst()
-                                    .orElse(null);
-                            e3.addParticipant(newParticipant);
 
                             System.out.println("En ajouter un autre ? (oui/non)");
                             encore = scanner.nextLine().equals("oui");

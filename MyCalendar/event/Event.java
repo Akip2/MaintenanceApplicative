@@ -1,10 +1,8 @@
-package events;
+package event;
 
-import users.User;
+import user.User;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class Event {
     //public String type; // "RDV_PERSONNEL", "REUNION", "PERIODIQUE"

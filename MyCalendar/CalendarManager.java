@@ -1,5 +1,5 @@
-import events.Event;
-import events.PeriodicEvent;
+import event.Event;
+import event.PeriodicEvent;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

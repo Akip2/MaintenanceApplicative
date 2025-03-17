@@ -1,6 +1,6 @@
-package events;
+package event;
 
-import users.User;
+import user.User;
 
 import java.text.MessageFormat;
 import java.time.LocalDateTime;
