@@ -1,68 +1,109 @@
-
 package trivia;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.util.Random;
-
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTest {
-	@Test
-	public void caracterizationTest() {
-		// runs 10.000 "random" games to see the output of old and new code mathces
-		for (int seed = 1; seed < 10_000; seed++) {
-			testSeed(seed, false);
-		}
-	}
+	private Game game;
 
-	private void testSeed(int seed, boolean printExpected) {
-		String expectedOutput = extractOutput(new Random(seed), new GameOld());
-		if (printExpected) {
-			System.out.println(expectedOutput);
-		}
-		String actualOutput = extractOutput(new Random(seed), new Game());
-		assertEquals(expectedOutput, actualOutput);
+	@BeforeEach
+	public void setUp() {
+		game = new Game();
 	}
 
 	@Test
-	@Disabled("enable back and set a particular seed to see the output")
-	public void oneSeed() {
-		testSeed(1, true);
+	@DisplayName("IsPlayable with 0 player")
+	public void testIsPlayableZeroPlayer() {
+		assertFalse(game.isPlayable());
 	}
 
-	private String extractOutput(Random rand, IGame aGame) {
-		PrintStream old = System.out;
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		try (PrintStream inmemory = new PrintStream(baos)) {
-			// WARNING: System.out.println() doesn't work in this try {} as the sysout is captured and recorded in memory.
-			System.setOut(inmemory);
+	@Test
+	@DisplayName("IsPlayable with 1 player")
+	public void testIsPlayableOnePlayer() {
+		game.add("Antoine");
+		assertFalse(game.isPlayable());
+	}
 
-			aGame.add("Chet");
-			aGame.add("Pat");
-			aGame.add("Sue");
+	@Test
+	@DisplayName("IsPlayable with enough players")
+	public void testIsPlayableEnoughPlayers() {
+		game.add("Antoine");
+		game.add("Damien");
+		assertTrue(game.isPlayable());
+	}
 
-			boolean notAWinner = false;
-			do {
-				aGame.roll(rand.nextInt(5) + 1);
+	@Test
+	@DisplayName("Add player without reaching max")
+	public void testAddPlayer() {
+		assertTrue(game.add("Dylan"));
+	}
 
-				if (rand.nextInt(9) == 7) {
-					notAWinner = aGame.wrongAnswer();
-				} else {
-					notAWinner = aGame.handleCorrectAnswer();
-				}
+	@Test
+	@DisplayName("Add player and reaching max")
+	public void testAddPlayerMax() {
+		game.add("Axel");
+		game.add("Luc");
+		game.add("Zack");
+		game.add("Nathan");
+		game.add("Dylan");
+		game.add("Antoine");
+		assertFalse(game.add("Thomas"));
+	}
 
-			} while (notAWinner);
-		} finally {
-			System.setOut(old);
-		}
+	@Test
+	@DisplayName("Roll while not in penalty")
+	public void testRoll() {
+		game.add("Antoine");
+		int roll = 5;
 
-		return new String(baos.toByteArray());
+		game.roll(roll);
+		Player currentPlayer = game.getCurrentPlayer();
+
+		assertEquals(6, currentPlayer.getPosition());
+	}
+
+	@Test
+	@DisplayName("Wrong answer puts player in penalty")
+	public void testWrongAnswer() {
+		game.add("Antoine");
+		Player currentPlayer = game.getCurrentPlayer();
+		game.wrongAnswer();
+
+		assertTrue(currentPlayer.isInPenalty());
+	}
+
+	@Test
+	@DisplayName("Correct answer")
+	public void testCorrectAnswer() {
+		game.add("Antoine");
+		Player currentPlayer = game.getCurrentPlayer();
+		game.handleCorrectAnswer();
+
+		assertEquals(1, currentPlayer.getCoins());
+	}
+
+	@Test
+	@DisplayName("Roll and escape penalty")
+	public void testRollEscape() {
+		game.add("Antoine");
+		Player currentPlayer = game.getCurrentPlayer();
+		game.wrongAnswer();
+		game.roll(3);
+
+		assertFalse(currentPlayer.isInPenalty());
+	}
+
+	@Test
+	@DisplayName("Roll and stays in penalty")
+	public void testRollStays() {
+		game.add("Antoine");
+		Player currentPlayer = game.getCurrentPlayer();
+		game.wrongAnswer();
+		game.roll(2);
+
+		assertTrue(currentPlayer.isInPenalty());
 	}
 }

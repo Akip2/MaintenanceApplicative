@@ -126,4 +126,8 @@ public class Game implements IGame {
     private boolean didPlayerWin() {
         return currentPlayer.getCoins() >= 6;
     }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
 }
