@@ -6,7 +6,10 @@ public class MinuteStart {
     public MinuteStart(String input) {
         try {
             int mInt = Integer.parseInt(input);
-            this.minutes = Math.max(mInt, 0);
+
+            if(mInt > 59) {
+                this.minutes = 59;
+            } else this.minutes = Math.max(mInt, 0);
         } catch (NumberFormatException e) {
             this.minutes = 0;
         }

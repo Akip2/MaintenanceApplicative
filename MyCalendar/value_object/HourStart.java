@@ -6,7 +6,10 @@ public class HourStart {
     public HourStart(String input) {
         try {
             int hInt = Integer.parseInt(input);
-            this.hours = Math.max(hInt, 0);
+
+            if(hInt > 23) {
+                this.hours = 23;
+            } else this.hours = Math.max(hInt, 0);
         } catch (NumberFormatException e) {
             this.hours = 0;
         }
