@@ -3,11 +3,12 @@ package actions;
 import actions.logged.*;
 import actions.not_logged.AccountCreationAction;
 import actions.not_logged.LoginAction;
-import actions.print_events.PrintAllEventsAction;
+import actions.print_events.*;
 import calendar.CalendarManager;
 import menu.LoggedMenu;
 import menu.MenuAction;
 import menu.NotLoggedMenu;
+import menu.PrintEventsMenu;
 import user.AuthManager;
 import user.UserManager;
 
@@ -48,9 +49,13 @@ public class ActionManager {
         )), authManager);
         menus.add(loggedMenu);
 
-        MenuAction printMenu = new NotLoggedMenu(new ArrayList<>(Arrays.asList(
-                new PrintAllEventsAction(calendar)
-        )));
+        MenuAction printMenu = new PrintEventsMenu(new ArrayList<>(Arrays.asList(
+                new PrintAllEventsAction(calendar),
+                new PrintEventsMonthAction(calendar),
+                new PrintEventsWeekAction(calendar),
+                new PrintEventsDayAction(calendar),
+                new GoBackAction(LOGGED_MENU, this)
+        )), this);
         menus.add(printMenu);
     }
 
