@@ -1,3 +1,5 @@
+import actions.ActionManager;
+import calendar.CalendarManager;
 import event.*;
 import user.AuthManager;
 import user.User;
@@ -20,9 +22,9 @@ public class Main {
         UserManager userManager = new UserManager();
         AuthManager authManager = new AuthManager(userManager);
 
-        ActionManager actionManager = new ActionManager(userManager, authManager);
+        ActionManager actionManager = new ActionManager(userManager, authManager, calendar);
 
-        while (true) {
+        while (actionManager.continues()) {
             actionManager.askChoice();
 
             while (continuer && utilisateur != null) {

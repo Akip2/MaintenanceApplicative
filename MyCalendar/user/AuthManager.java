@@ -1,7 +1,7 @@
 package user;
 
 public class AuthManager {
-    private UserManager userManager;
+    private final UserManager userManager;
     private User loggedInUser;
 
     public AuthManager(UserManager userManager) {
@@ -16,6 +16,10 @@ public class AuthManager {
         } else {
             return false;
         }
+    }
+
+    public void disconnect() {
+        loggedInUser = null;
     }
 
     public boolean isLoggedIn() {

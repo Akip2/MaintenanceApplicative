@@ -1,11 +1,12 @@
-package actions;
+package actions.not_logged;
 
+import actions.Action;
 import user.User;
 import user.UserManager;
 
 import java.util.Scanner;
 
-public class AccountCreationAction implements Action{
+public class AccountCreationAction implements Action {
     private final UserManager userManager;
 
     public AccountCreationAction(UserManager userManager) {

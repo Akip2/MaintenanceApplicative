@@ -1,3 +1,5 @@
+package calendar;
+
 import event.Event;
 import event.Events;
 import event.PeriodicEvent;

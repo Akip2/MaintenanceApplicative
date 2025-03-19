@@ -1,17 +1,21 @@
-package actions;
+package actions.not_logged;
 
+import actions.Action;
+import actions.ActionManager;
 import user.AuthManager;
 import user.UserManager;
 
 import java.util.Scanner;
 
-public class LoginAction implements Action{
+public class LoginAction implements Action {
     private final UserManager userManager;
     private final AuthManager authManager;
+    private final ActionManager actionManager;
 
-    public LoginAction(UserManager userManager, AuthManager authManager) {
+    public LoginAction(UserManager userManager, AuthManager authManager, ActionManager actionManager) {
         this.userManager = userManager;
         this.authManager = authManager;
+        this.actionManager = actionManager;
     }
 
     public void execute() {
@@ -26,6 +30,8 @@ public class LoginAction implements Action{
 
             if (!authManager.authenticate(name, pass)) {
                 System.out.println("Mot de passe invalide.");
+            } else {
+                actionManager.setMenuIndex(ActionManager.LOGGED_MENU);
             }
         } else {
             System.out.println("Utilisateur inexistant.");
