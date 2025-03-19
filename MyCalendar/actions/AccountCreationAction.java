@@ -33,4 +33,8 @@ public class AccountCreationAction implements Action{
             System.out.println("Utilisateur déjà existant avec ce nom.");
         }
     }
+
+    public String getName() {
+        return "Créer un compte";
+    }
 }

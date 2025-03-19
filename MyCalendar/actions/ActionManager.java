@@ -17,18 +17,39 @@ public class ActionManager {
         this.authManager = authManager;
 
         firstMenu = new MenuAction(Arrays.asList(
-                new AccountCreationAction(userManager),
-                new LoginAction(userManager, authManager)
+                new LoginAction(userManager, authManager),
+                new AccountCreationAction(userManager)
         ));
     }
 
     public void askChoice() {
-        MenuAction currentMenu = this.authManager.isLoggedIn() ? this.secondMenu : this.firstMenu;
+        MenuAction currentMenu;
+
+        if(this.authManager.isLoggedIn()) {
+            currentMenu = this.secondMenu;
+        } else {
+            System.out.println("  _____         _                   _                __  __");
+            System.out.println(" / ____|       | |                 | |              |  \\/  |");
+            System.out.println(
+                    "| |       __ _ | |  ___  _ __    __| |  __ _  _ __  | \\  / |  __ _  _ __    __ _   __ _   ___  _ __");
+            System.out.println(
+                    "| |      / _` || | / _ \\| '_ \\  / _` | / _` || '__| | |\\/| | / _` || '_ \\  / _` | / _` | / _ \\| '__|");
+            System.out.println(
+                    "| |____ | (_| || ||  __/| | | || (_| || (_| || |    | |  | || (_| || | | || (_| || (_| ||  __/| |");
+            System.out.println(
+                    " \\_____| \\__,_||_| \\___||_| |_| \\__,_| \\__,_||_|    |_|  |_| \\__,_||_| |_| \\__,_| \\__, | \\___||_|");
+            System.out.println(
+                    "                                                                                   __/ |");
+            System.out.println(
+                    "                                                                                  |___/");
+
+            currentMenu = this.firstMenu;
+        }
 
         System.out.println(currentMenu);
         System.out.println("Choix : ");
 
         int choiceId = scanner.nextInt();
-        currentMenu.executeAction(choiceId);
+        currentMenu.executeAction(choiceId - 1);
     }
 }

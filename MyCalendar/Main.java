@@ -1,3 +1,4 @@
+import actions.ActionManager;
 import event.*;
 import user.AuthManager;
 import user.User;
@@ -19,65 +20,11 @@ public class Main {
 
         UserManager userManager = new UserManager();
         AuthManager authManager = new AuthManager(userManager);
-        
+
+        ActionManager actionManager = new ActionManager(userManager, authManager);
+
         while (true) {
-            if (utilisateur == null) {
-                System.out.println("  _____         _                   _                __  __");
-                System.out.println(" / ____|       | |                 | |              |  \\/  |");
-                System.out.println(
-                        "| |       __ _ | |  ___  _ __    __| |  __ _  _ __  | \\  / |  __ _  _ __    __ _   __ _   ___  _ __");
-                System.out.println(
-                        "| |      / _` || | / _ \\| '_ \\  / _` | / _` || '__| | |\\/| | / _` || '_ \\  / _` | / _` | / _ \\| '__|");
-                System.out.println(
-                        "| |____ | (_| || ||  __/| | | || (_| || (_| || |    | |  | || (_| || | | || (_| || (_| ||  __/| |");
-                System.out.println(
-                        " \\_____| \\__,_||_| \\___||_| |_| \\__,_| \\__,_||_|    |_|  |_| \\__,_||_| |_| \\__,_| \\__, | \\___||_|");
-                System.out.println(
-                        "                                                                                   __/ |");
-                System.out.println(
-                        "                                                                                  |___/");
-
-                System.out.println("1 - Se connecter");
-                System.out.println("2 - Créer un compte");
-                System.out.println("Choix : ");
-
-                switch (scanner.nextLine()) {
-                    case "1":
-                        System.out.print("Nom d'utilisateur: ");
-                        String name1 = scanner.nextLine();
-
-                        User userToCompare = userManager.getUser(name1);
-
-                        if (userToCompare != null) {
-                            System.out.print("Mot de passe: ");
-                            String pass = scanner.nextLine();
-
-                            if (userToCompare.isPassword(pass)) {
-                                utilisateur = userToCompare;
-                            } else {
-                                System.out.println("Mot de passe invalide.");
-                            }
-                        } else {
-                            System.out.println("Utilisateur inexistant.");
-                        }
-                        break;
-
-                    case "2":
-                        System.out.print("Nom d'utilisateur: ");
-                        String name2 = scanner.nextLine();
-
-                        System.out.print("Mot de passe: ");
-                        String pass = scanner.nextLine();
-                        System.out.print("Répéter mot de passe: ");
-                        if (scanner.nextLine().equals(pass)) {
-                            utilisateur = new User(name2, pass);
-                            userManager.addUser(utilisateur);
-                        } else {
-                            System.out.println("Les mots de passes ne correspondent pas...");
-                        }
-                        break;
-                }
-            }
+            actionManager.askChoice();
 
             while (continuer && utilisateur != null) {
                 System.out.println("\nBonjour, " + utilisateur);

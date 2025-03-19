@@ -31,4 +31,8 @@ public class LoginAction implements Action{
             System.out.println("Utilisateur inexistant.");
         }
     }
+
+    public String getName() {
+        return "Se connecter";
+    }
 }
