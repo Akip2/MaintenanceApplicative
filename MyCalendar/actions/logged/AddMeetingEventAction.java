@@ -29,6 +29,7 @@ public class AddMeetingEventAction extends AddEventAction {
         boolean encore = answer.equals("oui");
 
         while (encore) {
+            System.out.print("Nom du participant : ");
             String participantName = scanner.nextLine();
             User newParticipant = userManager.getUser(participantName);
 
@@ -38,7 +39,7 @@ public class AddMeetingEventAction extends AddEventAction {
             System.out.println(event.getParticipants());
 
             System.out.println("En ajouter un autre ? (oui/non)");
-            encore = scanner.nextLine().equals("oui");
+            encore = scanner.nextLine().equalsIgnoreCase("oui");
         }
 
         this.addEvent(event);

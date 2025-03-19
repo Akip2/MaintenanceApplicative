@@ -18,7 +18,7 @@ public class DisconnectAction implements Action {
     @Override
     public void execute() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Déconnexion ! Voulez-vous continuer ? (O/N)");
+        System.out.println("Déconnexion ! Voulez-vous continuer ? (oui/non)");
 
         authManager.disconnect();
         actionManager.setMenuIndex(ActionManager.NOT_LOGGED_MENU);
