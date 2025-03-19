@@ -1,4 +1,3 @@
-import actions.ActionManager;
 import event.*;
 import user.AuthManager;
 import user.User;

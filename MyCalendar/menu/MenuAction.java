@@ -1,10 +1,11 @@
-package actions;
+package menu;
 
-import java.util.ArrayList;
+import actions.Action;
+
+import java.text.MessageFormat;
 import java.util.List;
-import java.util.Scanner;
 
-public class MenuAction {
+public abstract class MenuAction {
     private final List<Action> actions;
 
     public MenuAction(List<Action> actions) {
@@ -15,9 +16,11 @@ public class MenuAction {
         this.actions.get(choiceId).execute();
     }
 
+    public abstract String getIntro();
+
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(MessageFormat.format("{0}\n", getIntro()));
         for(int i=1; i<actions.size()+1; i++) {
             sb.append("%d - %s\n".formatted(i, actions.get(i-1).getName()));
         }
