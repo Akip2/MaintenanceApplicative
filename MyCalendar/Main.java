@@ -1,4 +1,5 @@
 import event.*;
+import user.AuthManager;
 import user.User;
 import user.UserManager;
 
@@ -12,11 +13,13 @@ public class Main {
     public static void main(String[] args) {
         CalendarManager calendar = new CalendarManager();
         Scanner scanner = new Scanner(System.in);
+
         User utilisateur = null;
         boolean continuer = true;
 
         UserManager userManager = new UserManager();
-
+        AuthManager authManager = new AuthManager(userManager);
+        
         while (true) {
             if (utilisateur == null) {
                 System.out.println("  _____         _                   _                __  __");

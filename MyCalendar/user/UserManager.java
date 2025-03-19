@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserManager {
-    private List<User> users;
+    private final List<User> users;
 
     public UserManager() {
         users = new ArrayList<User>();
@@ -18,5 +18,9 @@ public class UserManager {
 
     public User getUser(String name) {
         return users.stream().filter(user -> user.getName().equals(name)).findFirst().orElse(null);
+    }
+
+    public boolean userExists(String name) {
+        return users.stream().anyMatch(user -> user.getName().equals(name));
     }
 }
