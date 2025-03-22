@@ -20,6 +20,10 @@ public class UserManager {
         return users.stream().filter(user -> user.getName().equals(name)).findFirst().orElse(null);
     }
 
+    public List<User> getUsers() {
+        return users;
+    }
+
     public boolean userExists(String name) {
         return users.stream().anyMatch(user -> user.getName().equals(name));
     }

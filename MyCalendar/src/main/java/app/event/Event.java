@@ -18,16 +18,5 @@ public abstract class Event {
         this.dureeMinutes = dureeMinutes;
     }
 
-    /*
-    public String description() {
-        return switch (type) {
-            case "RDV_PERSONNEL" -> "RDV : " + title + " à " + dateDebut.toString();
-            case "REUNION" -> "Réunion : " + title + " à " + lieu + " avec " + participants;
-            case "PERIODIQUE" -> "Événement périodique : " + title + " tous les " + frequenceJours + " jours";
-            default -> "";
-        };
-    }
-     */
-
     public abstract String description();
 }

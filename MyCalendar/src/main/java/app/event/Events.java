@@ -83,4 +83,8 @@ public class Events {
             System.out.println(e.description());
         }
     }
+
+    public List<Event> getEvents() {
+        return events;
+    }
 }

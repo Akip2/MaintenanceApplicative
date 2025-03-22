@@ -12,10 +12,9 @@ public class AuthManager {
         User user = userManager.getUser(username);
         if (user != null && user.isPassword(password)) {
             loggedInUser = user;
-            return true;
-        } else {
-            return false;
         }
+
+        return isLoggedIn();
     }
 
     public void disconnect() {
