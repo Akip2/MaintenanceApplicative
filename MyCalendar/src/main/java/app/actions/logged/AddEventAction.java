@@ -25,7 +25,7 @@ public abstract class AddEventAction implements Action {
     }
 
     public void addEvent(Event e) {
-        calendar.ajouterEvent(e);
+        calendar.addEvent(e);
         System.out.println("Événement ajouté.");
     }
 

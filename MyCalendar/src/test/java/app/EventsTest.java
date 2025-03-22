@@ -3,6 +3,7 @@ package app;
 import app.event.Event;
 import app.event.Events;
 import app.event.MeetingEvent;
+import app.event.PeriodicEvent;
 import app.user.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -13,7 +14,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class EventsTest {
     public Events events;

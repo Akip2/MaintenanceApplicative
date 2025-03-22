@@ -18,5 +18,16 @@ public abstract class Event {
         this.dureeMinutes = dureeMinutes;
     }
 
+    public boolean isOverlapping(Event e) {
+        if(e instanceof PeriodicEvent) {
+            return e.isOverlapping(this);
+        } else {
+            LocalDateTime end1 = this.dateDebut.plusMinutes(this.dureeMinutes);
+            LocalDateTime end2 = e.dateDebut.plusMinutes(e.dureeMinutes);
+
+            return (end1.isAfter(e.dateDebut) && end2.isAfter(this.dateDebut));
+        }
+    }
+
     public abstract String description();
 }
