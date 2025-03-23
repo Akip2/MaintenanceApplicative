@@ -38,6 +38,7 @@ public class ActionManager {
                 new AddPersonalEventAction(authManager, calendar),
                 new AddMeetingEventAction(authManager, calendar, userManager),
                 new AddPeriodicEventAction(authManager, calendar),
+                new AddFormationEventAction(authManager, calendar, userManager),
                 new DeleteEventAction(calendar),
                 new DisconnectAction(authManager, this)
         )), authManager);

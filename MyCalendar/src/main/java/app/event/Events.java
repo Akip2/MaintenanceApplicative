@@ -47,6 +47,8 @@ public class Events {
             EventFrequency frequence = new EventFrequency(scanner.nextLine());
 
             e = new PeriodicEvent(title, owner, LocalDateTime.of(year.getValue(), month.getValue(), day.getValue(), hour.getValue(), minute.getValue()), duration, frequence);
+        } else if (eventType == EventType.FORMATION) {
+            e = new FormationEvent(title, owner, LocalDateTime.of(year.getValue(), month.getValue(), day.getValue(), hour.getValue(), minute.getValue()), duration);
         } else {
             e = null;
         }
