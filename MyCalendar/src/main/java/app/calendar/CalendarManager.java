@@ -2,12 +2,13 @@ package app.calendar;
 
 import app.event.Event;
 import app.event.Events;
+import app.value_object.EventId;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class CalendarManager {
-    public Events events;
+    private final Events events;
 
     public CalendarManager() {
         this.events = new Events();
@@ -24,6 +25,11 @@ public class CalendarManager {
 
     private boolean conflicts(Event event) {
         return events.getEvents().stream().anyMatch(e -> e.isOverlapping(event));
+    }
+
+    public boolean deleteEvent(EventId eventId) {
+        //TODO
+        return true;
     }
 
     public List<Event> eventsInPeriod(LocalDateTime debut, LocalDateTime fin) {

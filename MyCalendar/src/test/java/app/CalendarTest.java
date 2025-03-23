@@ -4,11 +4,9 @@ import app.calendar.CalendarManager;
 import app.event.Event;
 import app.event.MeetingEvent;
 import app.event.PeriodicEvent;
+import app.event.PersonalEvent;
 import app.user.User;
-import app.value_object.EventDuration;
-import app.value_object.EventFrequency;
-import app.value_object.EventPlace;
-import app.value_object.EventTitle;
+import app.value_object.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -98,5 +97,30 @@ public class CalendarTest {
 
         calendarManager.addEvent(periodic);
         assertTrue(calendarManager.addEvent(e));
+    }
+
+    @Test
+    @DisplayName("Delete non-existing event id")
+    public void testDeleteNonExistingEventId() {
+        Event e = new PersonalEvent(new EventTitle("1"), user, LocalDateTime.of(2020,10, 10, 0, 0), new EventDuration("60"));
+        calendarManager.addEvent(e);
+        assertFalse(calendarManager.deleteEvent(new EventId(UUID.randomUUID())));
+    }
+
+    @Test
+    @DisplayName("Delete existing event id")
+    public void testDeleteExistingEventId() {
+        Event e = new PersonalEvent(new EventTitle("1"), user, LocalDateTime.of(2020,10, 10, 0, 0), new EventDuration("60"));
+        calendarManager.addEvent(e);
+        assertTrue(calendarManager.deleteEvent(e.getEventId()));
+    }
+
+    @Test
+    @DisplayName("Delete existing event id verify its not in the list anymore")
+    public void testDeleteExistingEventIdAndVerifyList() {
+        Event e = new PersonalEvent(new EventTitle("1"), user, LocalDateTime.of(2020,10, 10, 0, 0), new EventDuration("60"));
+        calendarManager.addEvent(e);
+        calendarManager.deleteEvent(e.getEventId());
+        assertEquals(calendarManager.getEvents().size(), 0);
     }
 }
