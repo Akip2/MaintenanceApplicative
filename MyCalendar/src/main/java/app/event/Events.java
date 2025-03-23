@@ -68,7 +68,7 @@ public class Events {
         List<Event> result = new ArrayList<>();
         for (Event e : events) {
             if (e instanceof PeriodicEvent) {
-                LocalDateTime temp = e.dateDebut;
+                LocalDateTime temp = e.startDate;
                 while (temp.isBefore(fin)) {
                     if (!temp.isBefore(debut)) {
                         result.add(e);
@@ -76,7 +76,7 @@ public class Events {
                     }
                     temp = temp.plusDays(((PeriodicEvent) e).getFrequenceJours().getValue());
                 }
-            } else if (!e.dateDebut.isBefore(debut) && !e.dateDebut.isAfter(fin)) {
+            } else if (!e.startDate.isBefore(debut) && !e.startDate.isAfter(fin)) {
                 result.add(e);
             }
         }

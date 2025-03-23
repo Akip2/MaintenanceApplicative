@@ -7,9 +7,7 @@ public class UserManager {
     private final List<User> users;
 
     public UserManager() {
-        users = new ArrayList<User>();
-        users.add(new User("Pierre", "KiRouhl"));
-        users.add(new User("Roger", "Chat"));
+        users = new ArrayList<>();
     }
 
     public void addUser(User user) {

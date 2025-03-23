@@ -14,13 +14,13 @@ public class MeetingEvent extends Event {
     private List<User> participants;
     private EventPlace lieu;
 
-    public MeetingEvent(EventTitle title, User proprietaire, LocalDateTime dateDebut, EventDuration dureeMinutes,
+    public MeetingEvent(EventTitle title, User owner, LocalDateTime startDate, EventDuration durationMinutes,
                         EventPlace lieu) {
-        super(title, proprietaire, dateDebut, dureeMinutes);
+        super(title, owner, startDate, durationMinutes);
         this.participants = new ArrayList<>();
         this.lieu = lieu;
 
-        this.addParticipant(proprietaire);
+        this.addParticipant(owner);
     }
 
     public void addParticipant(User user) {

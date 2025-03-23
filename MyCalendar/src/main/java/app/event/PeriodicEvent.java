@@ -11,8 +11,8 @@ import java.time.LocalTime;
 public class PeriodicEvent extends Event {
     private final EventFrequency frequenceJours; // uniquement pour PERIODIQUE
 
-    public PeriodicEvent(EventTitle title, User proprietaire, LocalDateTime dateDebut, EventDuration dureeMinutes, EventFrequency frequenceJours) {
-        super(title, proprietaire, dateDebut, dureeMinutes);
+    public PeriodicEvent(EventTitle title, User owner, LocalDateTime startDate, EventDuration durationMinutes, EventFrequency frequenceJours) {
+        super(title, owner, startDate, durationMinutes);
         this.frequenceJours = frequenceJours;
     }
 
@@ -22,13 +22,13 @@ public class PeriodicEvent extends Event {
 
     @Override
     public boolean isOverlapping(Event e) {
-        LocalDateTime start = e.dateDebut;
-        LocalDateTime end = e.dateDebut.plusMinutes(e.dureeMinutes.getValue());
+        LocalDateTime start = e.startDate;
+        LocalDateTime end = e.startDate.plusMinutes(e.durationMinutes.getValue());
 
         boolean overlaps = false;
         if(e instanceof PeriodicEvent pe) {
-            LocalTime startTime1 = this.dateDebut.toLocalTime();
-            LocalTime endTime1 = pe.dateDebut.plusMinutes(dureeMinutes.getValue()).toLocalTime();
+            LocalTime startTime1 = this.startDate.toLocalTime();
+            LocalTime endTime1 = pe.startDate.plusMinutes(durationMinutes.getValue()).toLocalTime();
 
             LocalTime startTime2 = start.toLocalTime();
             LocalTime endTime2 = end.toLocalTime();
@@ -36,16 +36,16 @@ public class PeriodicEvent extends Event {
             overlaps = (endTime1.isAfter(startTime2) && endTime2.isAfter(startTime1))
             && (!pe.frequenceJours.equals(frequenceJours) || frequenceJours.getValue()==1);
         } else {
-            LocalDateTime occurrenceStart = this.dateDebut;
-            LocalDateTime occurrenceEnd = occurrenceStart.plusMinutes(this.dureeMinutes.getValue());
+            LocalDateTime occurrenceStart = this.startDate;
+            LocalDateTime occurrenceEnd = occurrenceStart.plusMinutes(this.durationMinutes.getValue());
 
             while ((occurrenceEnd.isBefore(end) || occurrenceStart.isBefore(end)) && !overlaps) {
-                if (occurrenceEnd.isAfter(e.dateDebut) && end.isAfter(occurrenceStart)) {
+                if (occurrenceEnd.isAfter(e.startDate) && end.isAfter(occurrenceStart)) {
                     overlaps = true;
                 }
 
                 occurrenceStart = occurrenceStart.plusDays(frequenceJours.getValue());
-                occurrenceEnd = occurrenceStart.plusMinutes(this.dureeMinutes.getValue());
+                occurrenceEnd = occurrenceStart.plusMinutes(this.durationMinutes.getValue());
             }
         }
 
