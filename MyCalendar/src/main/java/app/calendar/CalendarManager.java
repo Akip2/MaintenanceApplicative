@@ -28,8 +28,17 @@ public class CalendarManager {
     }
 
     public boolean deleteEvent(EventId eventId) {
-        //TODO
-        return true;
+        Event eventToDelete = this.getEvents().stream()
+                .filter(event -> event.getEventId().equals(eventId))
+                .findFirst()
+                .orElse(null);
+
+        if(eventToDelete != null) {
+            this.events.removeEvent(eventToDelete);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public List<Event> eventsInPeriod(LocalDateTime debut, LocalDateTime fin) {

@@ -22,6 +22,11 @@ public class EventFrequency {
         }
     }
 
+    @Override
+    public String toString() {
+        return String.valueOf(this.frequencyDay);
+    }
+
     public int getValue() {
         return frequencyDay;
     }

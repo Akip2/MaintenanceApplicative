@@ -1,17 +1,22 @@
 package app.value_object;
 
 public class EventTitle {
-    private String label;
+    private final String title;
 
     public EventTitle(String input) {
         if (input == null || input.isEmpty()) {
-            this.label = "default";
+            this.title = "default";
         } else {
-            this.label = input;
+            this.title = input;
         }
     }
 
+    @Override
+    public String toString() {
+        return this.title;
+    }
+
     public String getValue() {
-        return label;
+        return title;
     }
 }

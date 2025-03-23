@@ -14,6 +14,6 @@ public class PersonalEvent extends Event {
 
     @Override
     public String description() {
-        return MessageFormat.format("RDV_PERSONNEL : {0} à {1}", title, dateDebut.toString());
+        return MessageFormat.format("RDV_PERSONNEL : {0} à {1} {2}", title, dateDebut.toString(), getEventId());
     }
 }

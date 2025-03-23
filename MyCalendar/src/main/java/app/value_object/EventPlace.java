@@ -11,6 +11,11 @@ public class EventPlace {
         }
     }
 
+    @Override
+    public String toString() {
+        return place;
+    }
+
     public String getValue() {
         return place;
     }

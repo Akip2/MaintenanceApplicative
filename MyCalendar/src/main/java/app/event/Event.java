@@ -20,7 +20,7 @@ public abstract class Event {
         this.proprietaire = proprietaire;
         this.dateDebut = dateDebut;
         this.dureeMinutes = dureeMinutes;
-        this.eventId = new EventId(UUID.randomUUID());
+        this.eventId = new EventId(UUID.randomUUID().toString());
     }
 
     public boolean isOverlapping(Event e) {

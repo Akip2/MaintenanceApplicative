@@ -54,11 +54,12 @@ public class CalendarTest {
         calendarManager.addEvent(e3);
 
         assertEquals(
+                new ArrayList<>(List.of(e2, e3)),
+
                 calendarManager.eventsInPeriod(
                         LocalDateTime.of(2019, 1, 1, 0, 0),
                         LocalDateTime.of(2023, 1, 1, 0, 0)
-                ),
-                new ArrayList<>(List.of(e2, e3))
+                )
         );
     }
 
@@ -104,7 +105,7 @@ public class CalendarTest {
     public void testDeleteNonExistingEventId() {
         Event e = new PersonalEvent(new EventTitle("1"), user, LocalDateTime.of(2020,10, 10, 0, 0), new EventDuration("60"));
         calendarManager.addEvent(e);
-        assertFalse(calendarManager.deleteEvent(new EventId(UUID.randomUUID())));
+        assertFalse(calendarManager.deleteEvent(new EventId(UUID.randomUUID().toString())));
     }
 
     @Test
@@ -118,9 +119,10 @@ public class CalendarTest {
     @Test
     @DisplayName("Delete existing event id verify its not in the list anymore")
     public void testDeleteExistingEventIdAndVerifyList() {
-        Event e = new PersonalEvent(new EventTitle("1"), user, LocalDateTime.of(2020,10, 10, 0, 0), new EventDuration("60"));
-        calendarManager.addEvent(e);
-        calendarManager.deleteEvent(e.getEventId());
-        assertEquals(calendarManager.getEvents().size(), 0);
+        Event e1 = new PersonalEvent(new EventTitle("1"), user, LocalDateTime.of(2020,10, 10, 0, 0), new EventDuration("60"));
+        calendarManager.addEvent(e1);
+
+        calendarManager.deleteEvent(e1.getEventId());
+        assertEquals(0, calendarManager.getEvents().size());
     }
 }

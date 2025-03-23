@@ -33,6 +33,6 @@ public class MeetingEvent extends Event {
 
     @Override
     public String description() {
-        return MessageFormat.format("Réunion : {0} à {1} avec {2}", title, lieu, participants);
+        return MessageFormat.format("Réunion : {0} à {1} avec {2} {3}", title, lieu, participants, getEventId());
     }
 }

@@ -12,6 +12,11 @@ public class EventDuration {
         }
     }
 
+    @Override
+    public String toString() {
+        return String.valueOf(minutes);
+    }
+
     public int getValue() {
         return minutes;
     }

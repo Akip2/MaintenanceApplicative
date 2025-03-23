@@ -58,6 +58,10 @@ public class Events {
         this.events.add(event);
     }
 
+    public void removeEvent(Event event) {
+        this.events.remove(event);
+    }
+
     public List<Event> eventsInPeriod(LocalDateTime debut, LocalDateTime fin) {
         List<Event> result = new ArrayList<>();
         for (Event e : events) {

@@ -1,16 +1,22 @@
 package app.value_object;
 
+import java.text.MessageFormat;
 import java.util.UUID;
 
 public class EventId {
-    private final UUID id;
+    private final String id;
 
-    public EventId(UUID id) {
+    public EventId(String id) {
         this.id = id;
     }
 
-    public UUID getValue() {
+    public String getValue() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return MessageFormat.format("(ID: {0})", id.toString());
     }
 
     @Override
