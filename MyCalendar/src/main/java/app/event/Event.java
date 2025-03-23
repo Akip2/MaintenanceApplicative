@@ -1,17 +1,19 @@
 package app.event;
 
 import app.user.User;
+import app.value_object.EventDuration;
+import app.value_object.EventTitle;
 
 import java.time.LocalDateTime;
 
 public abstract class Event {
     //public String type; // "RDV_PERSONNEL", "REUNION", "PERIODIQUE"
-    public String title;
-    public User proprietaire;
-    public LocalDateTime dateDebut;
-    public int dureeMinutes;
+    protected final EventTitle title;
+    protected final User proprietaire;
+    protected final LocalDateTime dateDebut;
+    protected final EventDuration dureeMinutes;
 
-    public Event(String title, User proprietaire, LocalDateTime dateDebut, int dureeMinutes) {
+    public Event(EventTitle title, User proprietaire, LocalDateTime dateDebut, EventDuration dureeMinutes) {
         this.title = title;
         this.proprietaire = proprietaire;
         this.dateDebut = dateDebut;
@@ -22,8 +24,8 @@ public abstract class Event {
         if(e instanceof PeriodicEvent) {
             return e.isOverlapping(this);
         } else {
-            LocalDateTime end1 = this.dateDebut.plusMinutes(this.dureeMinutes);
-            LocalDateTime end2 = e.dateDebut.plusMinutes(e.dureeMinutes);
+            LocalDateTime end1 = this.dateDebut.plusMinutes(this.dureeMinutes.getValue());
+            LocalDateTime end2 = e.dateDebut.plusMinutes(e.dureeMinutes.getValue());
 
             return (end1.isAfter(e.dateDebut) && end2.isAfter(this.dateDebut));
         }

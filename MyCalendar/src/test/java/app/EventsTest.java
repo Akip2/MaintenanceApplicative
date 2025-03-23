@@ -3,8 +3,10 @@ package app;
 import app.event.Event;
 import app.event.Events;
 import app.event.MeetingEvent;
-import app.event.PeriodicEvent;
 import app.user.User;
+import app.value_object.EventDuration;
+import app.value_object.EventPlace;
+import app.value_object.EventTitle;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,7 +31,7 @@ public class EventsTest {
     @Test
     @DisplayName("Add event")
     public void testAddEvent() {
-        Event e = new MeetingEvent("1", user, LocalDateTime.now(), 60, "Nancy");
+        Event e = new MeetingEvent(new EventTitle("1"), user, LocalDateTime.now(), new EventDuration("60"), new EventPlace("Nancy"));
         events.addEvent(e);
         assertEquals(events.getEvents(), new ArrayList<>(List.of(e)));
     }
@@ -37,9 +39,9 @@ public class EventsTest {
     @Test
     @DisplayName("Events in period")
     public void testEventsInPeriod() {
-        Event e1 = new MeetingEvent("1", user, LocalDateTime.now(), 60, "Nancy");
-        Event e2 = new MeetingEvent("2", user, LocalDateTime.of(2020, Month.MARCH, 28, 10, 10), 60, "Nancy");
-        Event e3 = new MeetingEvent("3", user, LocalDateTime.of(2021, Month.MARCH, 28, 10, 10), 60, "Nancy");
+        Event e1 = new MeetingEvent(new EventTitle("1"), user, LocalDateTime.now(), new EventDuration("60"), new EventPlace("Nancy"));
+        Event e2 = new MeetingEvent(new EventTitle("2"), user, LocalDateTime.of(2020, Month.MARCH, 28, 10, 10), new EventDuration("60"), new EventPlace("Nancy"));
+        Event e3 = new MeetingEvent(new EventTitle("3"), user, LocalDateTime.of(2021, Month.MARCH, 28, 10, 10), new EventDuration("60"), new EventPlace("Nancy"));
 
         events.addEvent(e1);
         events.addEvent(e2);

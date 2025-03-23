@@ -36,17 +36,17 @@ public class Events {
         Event e;
 
         if(eventType == EventType.PERSONAL) {
-            e  = new PersonalEvent(title.getValue(), owner, LocalDateTime.of(year.getValue(), month.getValue(), day.getValue(), hour.getValue(), minute.getValue()), duration.getValue());
+            e  = new PersonalEvent(title, owner, LocalDateTime.of(year.getValue(), month.getValue(), day.getValue(), hour.getValue(), minute.getValue()), duration);
         } else if(eventType == EventType.MEETING) {
             System.out.println("Lieu :");
             EventPlace place = new EventPlace(scanner.nextLine());
 
-            e = new MeetingEvent(title.getValue(), owner, LocalDateTime.of(year.getValue(), month.getValue(), day.getValue(), hour.getValue(), minute.getValue()), duration.getValue(), place.getValue());
+            e = new MeetingEvent(title, owner, LocalDateTime.of(year.getValue(), month.getValue(), day.getValue(), hour.getValue(), minute.getValue()), duration, place);
         } else if(eventType == EventType.PERIODIC) {
             System.out.print("Frequence (en jours) : ");
-            EventFrequence frequence = new EventFrequence(scanner.nextLine());
+            EventFrequency frequence = new EventFrequency(scanner.nextLine());
 
-            e = new PeriodicEvent(title.getValue(), owner, LocalDateTime.of(year.getValue(), month.getValue(), day.getValue(), hour.getValue(), minute.getValue()), duration.getValue(), frequence.getValue());
+            e = new PeriodicEvent(title, owner, LocalDateTime.of(year.getValue(), month.getValue(), day.getValue(), hour.getValue(), minute.getValue()), duration, frequence);
         } else {
             e = null;
         }
@@ -68,7 +68,7 @@ public class Events {
                         result.add(e);
                         break;
                     }
-                    temp = temp.plusDays(((PeriodicEvent) e).getFrequenceJours());
+                    temp = temp.plusDays(((PeriodicEvent) e).getFrequenceJours().getValue());
                 }
             } else if (!e.dateDebut.isBefore(debut) && !e.dateDebut.isAfter(fin)) {
                 result.add(e);

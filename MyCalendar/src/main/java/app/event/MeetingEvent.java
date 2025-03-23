@@ -1,6 +1,9 @@
 package app.event;
 
 import app.user.User;
+import app.value_object.EventDuration;
+import app.value_object.EventPlace;
+import app.value_object.EventTitle;
 
 import java.text.MessageFormat;
 import java.time.LocalDateTime;
@@ -9,10 +12,10 @@ import java.util.List;
 
 public class MeetingEvent extends Event {
     private List<User> participants;
-    private String lieu;
+    private EventPlace lieu;
 
-    public MeetingEvent(String title, User proprietaire, LocalDateTime dateDebut, int dureeMinutes,
-                        String lieu) {
+    public MeetingEvent(EventTitle title, User proprietaire, LocalDateTime dateDebut, EventDuration dureeMinutes,
+                        EventPlace lieu) {
         super(title, proprietaire, dateDebut, dureeMinutes);
         this.participants = new ArrayList<>();
         this.lieu = lieu;
