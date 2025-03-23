@@ -1,10 +1,13 @@
 package app.actions;
 
+import app.menu.MenuAction;
+import app.menu.MenuType;
+
 public abstract class ChangeMenuAction implements Action {
-    private final int changeMenu;
+    private final MenuType changeMenu;
     private final ActionManager actionManager;
 
-    public ChangeMenuAction(int changeMenu, ActionManager actionManager) {
+        public ChangeMenuAction(MenuType changeMenu, ActionManager actionManager) {
         this.changeMenu = changeMenu;
         this.actionManager = actionManager;
     }

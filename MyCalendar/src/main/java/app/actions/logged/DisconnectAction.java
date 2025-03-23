@@ -2,6 +2,7 @@ package app.actions.logged;
 
 import app.actions.Action;
 import app.actions.ActionManager;
+import app.menu.MenuType;
 import app.user.AuthManager;
 
 import java.util.Scanner;
@@ -21,7 +22,7 @@ public class DisconnectAction implements Action {
         System.out.println("Déconnexion ! Voulez-vous continuer ? (oui/non)");
 
         authManager.disconnect();
-        actionManager.setMenuIndex(ActionManager.NOT_LOGGED_MENU);
+        actionManager.setMenuIndex(MenuType.NOT_LOGGED);
         actionManager.setRunning(scanner.nextLine().trim().equalsIgnoreCase("oui"));
     }
 

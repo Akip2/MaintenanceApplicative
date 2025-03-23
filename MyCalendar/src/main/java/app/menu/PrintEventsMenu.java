@@ -21,6 +21,6 @@ public class PrintEventsMenu extends MenuAction {
     @Override
     public void executeAction(int choiceId) {
         super.executeAction(choiceId);
-        actionManager.setMenuIndex(ActionManager.LOGGED_MENU);
+        actionManager.setMenuIndex(MenuType.LOGGED);
     }
 }

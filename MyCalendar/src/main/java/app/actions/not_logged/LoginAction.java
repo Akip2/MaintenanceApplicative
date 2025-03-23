@@ -2,6 +2,7 @@ package app.actions.not_logged;
 
 import app.actions.Action;
 import app.actions.ActionManager;
+import app.menu.MenuType;
 import app.user.AuthManager;
 import app.user.UserManager;
 
@@ -31,7 +32,7 @@ public class LoginAction implements Action {
             if (!authManager.authenticate(name, pass)) {
                 System.out.println("Mot de passe invalide.");
             } else {
-                actionManager.setMenuIndex(ActionManager.LOGGED_MENU);
+                actionManager.setMenuIndex(MenuType.LOGGED);
             }
         } else {
             System.out.println("Utilisateur inexistant.");
