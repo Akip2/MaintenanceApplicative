@@ -67,7 +67,7 @@ public class CalendarTest {
     }
 
     @Test
-    @DisplayName("Add event conflict")
+    @DisplayName("Add event with conflict")
     public void testAddEventConflict() {
         Event e1 = new MeetingEvent("1", user, LocalDateTime.now(), 60, "Nancy");
         Event e2 = new MeetingEvent("2", user, LocalDateTime.now(), 60, "Nancy");
@@ -131,6 +131,16 @@ public class CalendarTest {
     public void testAddEventTwoPeriodicConflict() {
         Event periodic1 = new PeriodicEvent("1", user, LocalDateTime.of(2020, 10, 12, 0, 0), 60, 8);
         Event periodic2 = new PeriodicEvent("2", user, LocalDateTime.of(2020, 10, 1, 0, 0), 60, 5);
+
+        calendarManager.addEvent(periodic1);
+        assertFalse(calendarManager.addEvent(periodic2));
+    }
+
+    @Test
+    @DisplayName("Add 2 periodic event with conflict (both with frequency 1)")
+    public void testAddEventTwoPeriodicConflictFrequency1() {
+        Event periodic1 = new PeriodicEvent("1", user, LocalDateTime.of(2020, 10, 12, 20, 30), 60, 1);
+        Event periodic2 = new PeriodicEvent("2", user, LocalDateTime.of(2020, 10, 1, 20, 0), 60, 1);
 
         calendarManager.addEvent(periodic1);
         assertFalse(calendarManager.addEvent(periodic2));

@@ -25,8 +25,8 @@ public abstract class AddEventAction implements Action {
     }
 
     public void addEvent(Event e) {
-        calendar.addEvent(e);
-        System.out.println("Événement ajouté.");
+        boolean wasAbleToAdd = calendar.addEvent(e);
+        System.out.println(wasAbleToAdd ? "Événement ajouté." : "L'événement n'a pas pu être ajouté.\nIl chevauche un événement déjà existant");
     }
 
     public Event createEvent() {

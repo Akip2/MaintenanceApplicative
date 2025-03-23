@@ -23,8 +23,7 @@ public class CalendarManager {
     }
 
     private boolean conflicts(Event event) {
-        //TODO
-        return false;
+        return events.getEvents().stream().anyMatch(e -> e.isOverlapping(event));
     }
 
     public List<Event> eventsInPeriod(LocalDateTime debut, LocalDateTime fin) {
